@@ -33,25 +33,13 @@ namespace CV_builder.Controllers
             return View(model);
         }
 
-
         [HttpPost]
         public IActionResult Create(CVModel cv)
         {
             if (ModelState.IsValid)
             {
                 _storage.AddCV(cv);
-                var check = _storage.GetCvList();
                 return RedirectToAction("Index");
-            }
-
-            if (!ModelState.IsValid)
-            {
-                var errors = ModelState.Values.SelectMany(v => v.Errors);
-                foreach(var error in errors)
-                {
-                    Console.WriteLine(error.ErrorMessage);
-                }
-                return View(cv);
             }
 
             return View(cv);
@@ -122,8 +110,6 @@ namespace CV_builder.Controllers
             }
             return RedirectToAction(nameof(Index));
         }
-
-
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
