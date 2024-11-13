@@ -2,17 +2,19 @@ using CV_builder.Models;
 using CV_builder.Storage;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using System.Reflection;
 
 namespace CV_builder.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private static CVStorage _storage = new CVStorage();
+        private CVStorage _storage;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, CVStorage storage)
         {
             _logger = logger;
+            _storage = storage;
         }
 
         public IActionResult Index()
@@ -20,7 +22,6 @@ namespace CV_builder.Controllers
             var model = _storage.GetCvList();
             return View(model);
         }
-
 
         [HttpGet]
         public IActionResult Create()
@@ -34,6 +35,7 @@ namespace CV_builder.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Create(CVModel cv)
         {
             if (ModelState.IsValid)
@@ -51,12 +53,15 @@ namespace CV_builder.Controllers
             {
                 return NotFound();
             }
+            //Console.WriteLine($"Number of Educations: {cv.Education.Count}");
+            //Console.WriteLine($"Number of Work Experiences: {cv.WorkExperience.Count}");
             return View(cv);
         }
 
         public IActionResult Edit(int id)
         {
-            var cv = _storage.GetCvList().FirstOrDefault(c => c.Id == id);
+            var list = _storage.GetCvList();
+            var cv = _storage.GetCvList().FirstOrDefault(cv => cv.Id == id);
             if (cv == null)
             {
                 return NotFound();
@@ -65,6 +70,7 @@ namespace CV_builder.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Edit(int id, CVModel cv)
         {
             if (id != cv.Id)
@@ -83,9 +89,11 @@ namespace CV_builder.Controllers
                     existingCv.Email = cv.Email;
                     existingCv.Address = cv.Address;
                     existingCv.Education = cv.Education;
-                    existingCv.WorkExperience = cv.WorkExperience;                
+                    existingCv.WorkExperience = cv.WorkExperience;
+                    _storage.SaveCVs();
                 }
-                return RedirectToAction(nameof(Index));
+                
+                return RedirectToAction("Index");
             }
             return View(cv);
         }
@@ -101,14 +109,16 @@ namespace CV_builder.Controllers
         }
 
         [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
         public IActionResult DeleteConfirmed(int id)
         {
             var cv = _storage.GetCvList().FirstOrDefault(c => c.Id == id);
             if (cv != null)
             {
                 _storage.GetCvList().Remove(cv);
+                _storage.SaveCVs();
             }
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Index");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

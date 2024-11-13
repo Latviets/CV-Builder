@@ -1,5 +1,6 @@
 ﻿using CV_builder.Models;
-using System.Text.Json;
+using Newtonsoft.Json;
+using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace CV_builder.Storage
 {
@@ -7,35 +8,46 @@ namespace CV_builder.Storage
     {
         private List<CVModel> _cvs = new List<CVModel>();
         private readonly string _filePath = "cvs.json";
+        private int _id = 0;
 
         public CVStorage()
         {
+            Console.WriteLine("Initializing CVStorage...");
             LoadCVs();
+            if (_cvs.Any())
+            {
+                _id = _cvs.Max(c => c.Id);
+            }
         }
 
         public void AddCV(CVModel cv)
         {
+            cv.Id = ++_id;
             _cvs.Add(cv);
             SaveCVs();
         }
 
         public List<CVModel> GetCvList()
         {
-            return _cvs;
+            return _cvs ?? new List<CVModel>();
         }
 
-        private void SaveCVs()
+        public void SaveCVs()
         {
-            var jsonData = JsonSerializer.Serialize(_cvs);
-            File.WriteAllText(_filePath, jsonData);
+            var json = JsonConvert.SerializeObject(_cvs, Formatting.Indented);
+            File.WriteAllText(_filePath, json);
         }
 
         private void LoadCVs()
         {
             if (File.Exists(_filePath))
             {
-                var jsonData = File.ReadAllText(_filePath);
-                _cvs = JsonSerializer.Deserialize<List<CVModel>>(jsonData) ?? new List<CVModel>();
+                var json = File.ReadAllText(_filePath);
+                _cvs = JsonConvert.DeserializeObject<List<CVModel>>(json) ?? new List<CVModel>();
+            }
+            else
+            {
+                _cvs = new List<CVModel>();
             }
         }
     }

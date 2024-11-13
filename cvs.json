@@ -1,1 +1,56 @@
-[{"Id":0,"Name":"edvins","Surname":"edvins","Phone":"edvins","Email":"edvins","Address":"edvins","Education":[{"Institution":"edvins","FieldOfStudy":"edvins","Faculty":"edvins","EducationLevel":"edvins","Status":"edvins"}],"WorkExperience":[{"JobTitle":"edvins","Company":"edvins","Workload":"edvins","Address":"vedvins","StartDate":"2024-11-01T00:00:00","EndDate":"2024-11-12T00:00:00"}]},{"Id":0,"Name":"edvins","Surname":"edvins","Phone":"edvins","Email":"edvins","Address":"edvins","Education":[{"Institution":"edvins","FieldOfStudy":"edvins","Faculty":"edvins","EducationLevel":"edvins","Status":"edvins"},{"Institution":"edvins","FieldOfStudy":"edvins","Faculty":"edvins","EducationLevel":"edvins","Status":"edvins"}],"WorkExperience":[{"JobTitle":"edvins","Company":"edvins","Workload":"edvins","Address":"edvins","StartDate":"2024-11-01T00:00:00","EndDate":"2024-11-12T00:00:00"}]}]
+[
+  {
+    "Id": 2,
+    "Name": "Edvins",
+    "Surname": "Vecverdins",
+    "Phone": "25669555555",
+    "Email": "example@inbox.lv",
+    "Address": "Ventspils, Lielais Prospekts 69",
+    "Education": [],
+    "WorkExperience": [
+      {
+        "Company": "AS \"Latvenergo\"",
+        "JobTitle": "CEO Of the company",
+        "Workload": "Pilna laika",
+        "Address": "Pils iela 24",
+        "StartDate": "2024-11-07T00:00:00",
+        "EndDate": "2024-11-12T00:00:00"
+      }
+    ]
+  },
+  {
+    "Id": 1,
+    "Name": "Andris",
+    "Surname": "Andrisons",
+    "Phone": "11881010",
+    "Email": "Andris@gmail.com",
+    "Address": "Riga, Kungu iela 4",
+    "Education": [
+      {
+        "Institution": "Valsts Ģimnāzija",
+        "FieldOfStudy": "Bioloģija",
+        "Faculty": "Dabaszinātnes",
+        "EducationLevel": "Vidusskola",
+        "Status": "Pabeigts"
+      }
+    ],
+    "WorkExperience": [
+      {
+        "Company": "Testēšana SIA",
+        "JobTitle": "Testētājs",
+        "Workload": "Pilna lika",
+        "Address": "No mājām",
+        "StartDate": "2024-11-05T00:00:00",
+        "EndDate": "2024-11-11T00:00:00"
+      },
+      {
+        "Company": "RealCompany SIA",
+        "JobTitle": "Finanšu departamenta vadītājs",
+        "Workload": "Pusslodze",
+        "Address": "Rīga, Rīgas iela 100",
+        "StartDate": "2024-11-03T21:14:00",
+        "EndDate": "2024-11-12T21:15:00"
+      }
+    ]
+  }
+]

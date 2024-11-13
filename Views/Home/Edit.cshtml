@@ -1,4 +1,8 @@
-﻿@model CVModel
+﻿@model CV_builder.Models.CVModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
 
 <h2>Edit CV</h2>
 
@@ -6,96 +10,200 @@
     <input type="hidden" asp-for="Id" />
     <div class="form-group">
         <label asp-for="Name"></label>
-        <input asp-for="Name" class="form-control" />
+        <input asp-for="Name" class="form-control" autocomplete="name" />
     </div>
     <div class="form-group">
         <label asp-for="Surname"></label>
-        <input asp-for="Surname" class="form-control" />
+        <input asp-for="Surname" class="form-control" autocomplete="family-name" />
     </div>
     <div class="form-group">
         <label asp-for="Phone"></label>
-        <input asp-for="Phone" class="form-control" />
+        <input asp-for="Phone" class="form-control" autocomplete="tel" />
     </div>
     <div class="form-group">
         <label asp-for="Email"></label>
-        <input asp-for="Email" class="form-control" />
+        <input asp-for="Email" class="form-control" autocomplete="email" />
     </div>
     <div class="form-group">
         <label asp-for="Address"></label>
-        <input asp-for="Address" class="form-control" />
+        <input asp-for="Address" class="form-control" autocomplete="street-address" />
     </div>
 
-    <div>
+    <div id="educations">
         <h4>Education</h4>
-        <div id="education-section">
-            @for (int i = 0; i < Model.Education.Count; i++)
-            {
-                <div class="card mb-3">
-                    <div class="card-header">
-                        <h5>Education @i</h5>
-                    </div> <div class="card-body">
-                        <div class="form-group">
-                            <label asp-for="Education[i].Institution"></label>
-                            <input asp-for="Education[i].Institution" class="form-control" />
-                        </div>
-                        <div class="form-group">
-                            <label asp-for="Education[i].Faculty"></label>
-                            <input asp-for="Education[i].Faculty" class="form-control" />
-                        </div>
-                        <div class="form-group">
-                            <label asp-for="Education[i].FieldOfStudy"></label>
-                            <input asp-for="Education[i].FieldOfStudy" class="form-control" />
-                        </div>
-                        <div class="form-group">
-                            <label asp-for="Education[i].EducationLevel"></label>
-                            <input asp-for="Education[i].EducationLevel" class="form-control" />
-                        </div>
-                        <div class="form-group">
-                            <label asp-for="Education[i].Status"></label>
-                            <input asp-for="Education[i].Status" class="form-control" />
-                        </div>
-                    </div>
+        @if (Model.Education == null || Model.Education.Count == 0)
+        {
+            <div class="card mb-3 education-template item-template d-none">
+                <div class="card-header">
+                    <h5>Education <button type="button" class="btn btn-danger btn-sm float-right remove-item">Remove</button></h5>
                 </div>
-            }
-        </div>
-    </div>
+                <div class="form-group">
+                    <label>Institution</label>
+                    <input class="form-control" autocomplete="organization" />
+                </div>
+                <div class="form-group">
+                    <label>FieldOfStudy</label>
+                    <input class="form-control" autocomplete="section" />
+                </div>
+                <div class="form-group">
+                    <label>Faculty</label>
+                    <input class="form-control" autocomplete="field-of-study" />
+                </div>
+                <div class="form-group">
+                    <label>EducationLevel</label>
+                    <input class="form-control" autocomplete="education-level" />
+                </div>
+                <div class="form-group">
+                    <label>Status</label>
+                    <input class="form-control" autocomplete="current-status" />
+                </div>
+            </div>
+        }
 
-    <div>
-        <h4>Work Experience</h4>
-        <div id="work-experience-section">
-            @for (int i = 0; i < Model.WorkExperience.Count; i++)
-            {
-                <div class="card mb-3">
-                    <div class="card-header">
-                        <h5>Work Experience @i</h5>
-                    </div> <div class="card-body">
-                        <div class="form-group">
-                            <label asp-for="WorkExperience[i].Company"></label>
-                            <input asp-for="WorkExperience[i].Company" class="form-control" />
-                        </div>
-                        <div class="form-group">
-                            <label asp-for="WorkExperience[i].JobTitle"></label>
-                            <input asp-for="WorkExperience[i].JobTitle" class="form-control" />
-                        </div>
-                        <div class="form-group">
-                            <label asp-for="WorkExperience[i].Workload"></label>
-                            <input asp-for="WorkExperience[i].Workload" class="form-control" />
-                        </div>
-                        <div class="form-group">
-                            <label asp-for="WorkExperience[i].StartDate"></label>
-                            <input asp-for="WorkExperience[i].StartDate" class="form-control" />
-                        </div>
-                        <div class="form-group">
-                            <label asp-for="WorkExperience[i].EndDate"></label>
-                            <input asp-for="WorkExperience[i].EndDate" class="form-control" />
-                        </div>
+        @for (int i = 0; i < Model.Education.Count; i++)
+        {
+            <div class="card mb-3 education-template item-template">
+                <div class="card-header">
+                    <h5>Education   <button type="button" class="btn btn-danger btn-sm float-right remove-item">Remove</button></h5>
+                </div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <label asp-for="Education[@i].Institution"></label>
+                        <input asp-for="Education[@i].Institution" class="form-control" autocomplete="organization" />
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Education[@i].FieldOfStudy"></label>
+                        <input asp-for="Education[@i].FieldOfStudy" class="form-control" autocomplete="section" />
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Education[@i].Faculty"></label>
+                        <input asp-for="Education[@i].Faculty" class="form-control" autocomplete="field-of-study" />
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Education[@i].EducationLevel"></label>
+                        <input asp-for="Education[@i].EducationLevel" class="form-control" autocomplete="education-level" />
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Education[@i].Status"></label>
+                        <input asp-for="Education[@i].Status" class="form-control" autocomplete="current-status" />
                     </div>
                 </div>
-            }
-        </div>
+            </div>
+        }
     </div>
+    <button type="button" id="add-education" class="btn btn-secondary">Add Education</button>
+
+    <div id="workExperiences">
+        <h4>Work Experience</h4>
+        @if (Model.WorkExperience == null || Model.WorkExperience.Count == 0)
+        {
+            <div class="card mb-3 workExperience-template item-template d-none">
+                <div class="card-header">
+                    <h5>Work Experience      <button type="button" class="btn btn-danger btn-sm float-right remove-item">Remove</button></h5>
+                </div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <label>Company</label>
+                        <input class="form-control" autocomplete="organization" />
+                    </div>
+                    <div class="form-group">
+                        <label>JobTitle</label>
+                        <input class="form-control" autocomplete="organization-title" />
+                    </div>
+                    <div class="form-group">
+                        <label>Workload</label>
+                        <input class="form-control" autocomplete="workload" />
+                    </div>
+                    <div class="form-group">
+                        <label>Address</label>
+                        <input class="form-control" autocomplete="street-address" />
+                    </div>
+                    <div class="form-group">
+                        <label>StartDate</label>
+                        <input class="form-control" autocomplete="bday" />
+                    </div>
+                    <div class="form-group">
+                        <label>EndDate</label>
+                        <input class="form-control" autocomplete="bday" />
+                    </div>
+                </div>
+            </div>
+        }
+
+        @for (int i = 0; i < Model.WorkExperience.Count; i++)
+        {
+            <div class="card mb-3 workExperience-template item-template">
+                <div class="card-header">
+                    <h5>Work Experience     <button type="button" class="btn btn-danger btn-sm float-right remove-item">Remove</button></h5>
+                </div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <label asp-for="WorkExperience[@i].Company"></label>
+                        <input asp-for="WorkExperience[@i].Company" class="form-control" autocomplete="organization" />
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="WorkExperience[@i].JobTitle"></label>
+                        <input asp-for="WorkExperience[@i].JobTitle" class="form-control" autocomplete="job-title" />
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="WorkExperience[@i].Workload"></label>
+                        <input asp-for="WorkExperience[@i].Workload" class="form-control" autocomplete="workload" />
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="WorkExperience[@i].Address"></label>
+                        <input asp-for="WorkExperience[@i].Address" class="form-control" autocomplete="street-address" />
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="WorkExperience[@i].StartDate"></label>
+                        <input asp-for="WorkExperience[@i].StartDate" class="form-control" autocomplete="off" />
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="WorkExperience[@i].EndDate"></label>
+                        <input asp-for="WorkExperience[@i].EndDate" class="form-control" autocomplete="off" />
+                    </div>
+                </div>
+            </div>
+        }
+
+    </div>
+    <button type="button" id="add-workExperience" class="btn btn-secondary">Add Work Experience</button>
 
     <button type="submit" class="btn btn-primary">Save</button>
 </form>
 
 <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        $(document).ready(function () {
+            let educationIndex = @Model.Education?.Count ?? 0;
+            let workExperienceIndex = @Model.WorkExperience?.Count ?? 0;
+
+            $('#add-education').click(function () {
+                let template = $('.education-template').first().clone();
+                initializeTemplate(template, 'Education', educationIndex++);
+                $('#educations').append(template);
+            });
+
+            $(document).on('click', '.remove-item', function () {
+                $(this).closest('.item-template').remove();
+                updateIndexes('#educations .education-template', 'Education');
+                updateIndexes('#workExperiences .workExperience-template', 'WorkExperience');
+            });
+
+            function updateIndexes(selector, type) {
+                $(selector).each(function (i) {
+                    $(this).find('input').each(function () {
+                        let name = $(this).attr('name').replace(/\[\d+\]/, '[' + i + ']');
+                        $(this).attr('name', name);
+                    });
+                });
+            }
+        });
+    </script>
+}
+
