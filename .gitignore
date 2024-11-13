@@ -1,0 +1,6 @@
+/.vs/CV_builder/*
+/bin/*
+/obj/*
+/wwwroot/lib/bootstrap/*
+/wwwroot/lib/*
+/wwwroot/css/site.css

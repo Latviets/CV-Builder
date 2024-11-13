@@ -1,0 +1,38 @@
+﻿@model List<CVModel>
+@{
+    ViewData["Title"] = "CV List";
+}
+
+<h2>CV List</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Surname</th>
+            <th>Phone</th>
+            <th>Email</th>
+            <th>Address</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var cv in Model)
+        {
+            <tr>
+                <td>@cv.Name</td>
+                <td>@cv.Surname</td>
+                <td>@cv.Phone</td>
+                <td>@cv.Email</td>
+                <td>@cv.Address</td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@cv.Id" class="btn btn-info">Details</a>
+                    <a asp-action="Edit" asp-route-id="@cv.Id" class="btn btn-primary">Edit</a>
+                    <a asp-action="Delete" asp-route-id="@cv.Id" class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a asp-action="Create" class="btn btn-primary">Add New CV</a>
