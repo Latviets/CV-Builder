@@ -2,7 +2,7 @@
 {
     public class Education
     {
-        public int Id { get; set; }
+        //public int Id { get; set; }
         public string Institution { get; set; }
         public string FieldOfStudy { get; set; }
         public string Faculty { get; set; }

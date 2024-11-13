@@ -1,53 +1,89 @@
-﻿@model CV_builder.Models.CVModel
+﻿@model CVModel
 
-@{
-    ViewData["Title"] = "Edit";
-}
+<h2>Edit CV</h2>
 
-<h1>Edit</h1>
-
-<h4>CVModel</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>          
-            <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Surname" class="control-label"></label>
-                <input asp-for="Surname" class="form-control" />
-                <span asp-validation-for="Surname" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Phone" class="control-label"></label>
-                <input asp-for="Phone" class="form-control" />
-                <span asp-validation-for="Phone" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Address" class="control-label"></label>
-                <input asp-for="Address" class="form-control" />
-                <span asp-validation-for="Address" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+<form asp-action="Edit" method="post">
+    <input type="hidden" asp-for="Id" />
+    <div class="form-group">
+        <label asp-for="Name"></label>
+        <input asp-for="Name" class="form-control" />
     </div>
-</div>
+    <div class="form-group">
+        <label asp-for="Surname"></label>
+        <input asp-for="Surname" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Phone"></label>
+        <input asp-for="Phone" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Email"></label>
+        <input asp-for="Email" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Address"></label>
+        <input asp-for="Address" class="form-control" />
+    </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+    <div>
+        <h4>Education</h4>
+        <div id="education-section">
+            @for (int i = 0; i < Model.Education.Count; i++)
+            {
+                <div class="form-group">
+                    <label asp-for="Education[i].Institution"></label>
+                    <input asp-for="Education[i].Institution" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Education[i].Faculty"></label>
+                    <input asp-for="Education[i].Faculty" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Education[i].FieldOfStudy"></label>
+                    <input asp-for="Education[i].FieldOfStudy" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Education[i].EducationLevel"></label>
+                    <input asp-for="Education[i].EducationLevel" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Education[i].Status"></label>
+                    <input asp-for="Education[i].Status" class="form-control" />
+                </div>
+            }
+        </div>
+    </div>
 
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+    <div>
+        <h4>Work Experience</h4>
+        <div id="work-experience-section">
+            @for (int i = 0; i < Model.WorkExperience.Count; i++)
+            {
+                <div class="form-group">
+                    <label asp-for="WorkExperience[i].Company"></label>
+                    <input asp-for="WorkExperience[i].Company" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="WorkExperience[i].JobTitle"></label>
+                    <input asp-for="WorkExperience[i].JobTitle" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="WorkExperience[i].Workload"></label>
+                    <input asp-for="WorkExperience[i].Workload" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="WorkExperience[i].StartDate"></label>
+                    <input asp-for="WorkExperience[i].StartDate" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="WorkExperience[i].EndDate"></label>
+                    <input asp-for="WorkExperience[i].EndDate" class="form-control" />
+                </div>
+            }
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save</button>
+</form>
+
+<a asp-action="Index" class="btn btn-secondary">Back to List</a>

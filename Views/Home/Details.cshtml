@@ -48,6 +48,59 @@
         </dd>
     </dl>
 </div>
+
+<h3>Education</h3>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Institution</th>
+            <th>Field Of Study</th>
+            <th>Faculty</th>
+            <th>Education Level</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var education in Model.Education)
+        {
+            <tr>
+                <td>@education.Institution</td>
+                <td>@education.FieldOfStudy</td>
+                <td>@education.Faculty</td>
+                <td>@education.EducationLevel</td>
+                <td>@education.Status</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<h3>Work Experience</h3>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Job Title</th>
+            <th>Company</th>
+            <th>Workload</th>
+            <th>Address</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var workExperience in Model.WorkExperience)
+        {
+            <tr>
+                <td>@workExperience.JobTitle</td>
+                <td>@workExperience.Company</td>
+                <td>@workExperience.Workload</td>
+                <td>@workExperience.Address</td>
+                <td>@workExperience.StartDate.ToShortDateString()</td>
+                <td>@workExperience.EndDate.ToShortDateString()</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
 <div>
     
     <a asp-action="Index">Back to List</a>

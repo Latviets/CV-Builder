@@ -21,16 +21,18 @@ namespace CV_builder.Controllers
             return View(model);
         }
 
-        //public IActionResult Privacy()
-        //{
-        //    return View();
-        //}
 
         [HttpGet]
         public IActionResult Create()
         {
-            return View();
+            var model = new CVModel
+            {
+                Education = new List<Education> { new Education() },
+                WorkExperience = new List<WorkExperience> { new WorkExperience() }
+            };
+            return View(model);
         }
+
 
         [HttpPost]
         public IActionResult Create(CVModel cv)
@@ -40,6 +42,16 @@ namespace CV_builder.Controllers
                 _storage.AddCV(cv);
                 var check = _storage.GetCvList();
                 return RedirectToAction("Index");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                var errors = ModelState.Values.SelectMany(v => v.Errors);
+                foreach(var error in errors)
+                {
+                    Console.WriteLine(error.ErrorMessage);
+                }
+                return View(cv);
             }
 
             return View(cv);
@@ -65,7 +77,6 @@ namespace CV_builder.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public IActionResult Edit(int id, CVModel cv)
         {
             if (id != cv.Id)
@@ -83,7 +94,8 @@ namespace CV_builder.Controllers
                     existingCv.Phone = cv.Phone;
                     existingCv.Email = cv.Email;
                     existingCv.Address = cv.Address;
-                    // Update other fields as needed
+                    existingCv.Education = cv.Education;
+                    existingCv.WorkExperience = cv.WorkExperience;                
                 }
                 return RedirectToAction(nameof(Index));
             }
@@ -101,7 +113,6 @@ namespace CV_builder.Controllers
         }
 
         [HttpPost, ActionName("Delete")]
-        //[ValidateAntiForgeryToken]
         public IActionResult DeleteConfirmed(int id)
         {
             var cv = _storage.GetCvList().FirstOrDefault(c => c.Id == id);
