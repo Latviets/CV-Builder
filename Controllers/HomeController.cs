@@ -53,8 +53,7 @@ namespace CV_builder.Controllers
             {
                 return NotFound();
             }
-            //Console.WriteLine($"Number of Educations: {cv.Education.Count}");
-            //Console.WriteLine($"Number of Work Experiences: {cv.WorkExperience.Count}");
+
             return View(cv);
         }
 
