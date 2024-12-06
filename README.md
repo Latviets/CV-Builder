@@ -1,4 +1,5 @@
 CV Manager
+
 This application was built to facilitate the creation, saving and editing of CVs. It provides a basic user-friendly interface for managing CVs effectively.
 
 Features
