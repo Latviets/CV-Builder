@@ -179,25 +179,63 @@
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
     <script>
-        $(document).ready(function () {
+        $(document).ready(function ()
+        {
             let educationIndex = @Model.Education?.Count ?? 0;
             let workExperienceIndex = @Model.WorkExperience?.Count ?? 0;
 
-            $('#add-education').click(function () {
+            $('#add-education').click(function ()
+            {
                 let template = $('.education-template').first().clone();
-                initializeTemplate(template, 'Education', educationIndex++);
-                $('#educations').append(template);
+                if (template.length > 0)
+                {
+                    initializeTemplate(template, 'Education', educationIndex++);
+                    $('#educations').append(template);
+                }
+                else
+                {
+                    console.error("No education template found to clone.");
+                }
             });
 
-            $(document).on('click', '.remove-item', function () {
+            $('#add-workExperience').click(function ()
+            {
+                let template = $('.workExperience-template').first().clone();
+                if (template.length > 0)
+                {
+                    initializeTemplate(template, 'WorkExperience', workExperienceIndex++);
+                    $('#workExperiences').append(template);
+                }
+                else
+                {
+                    console.error("No work experience template found to clone.");
+                }
+            });
+
+            $(document).on('click', '.remove-item', function ()
+            {
                 $(this).closest('.item-template').remove();
                 updateIndexes('#educations .education-template', 'Education');
                 updateIndexes('#workExperiences .workExperience-template', 'WorkExperience');
             });
 
-            function updateIndexes(selector, type) {
-                $(selector).each(function (i) {
-                    $(this).find('input').each(function () {
+            function initializeTemplate(template, type, index)
+            {
+                template.find('input').each(function ()
+                {
+                    let newName = $(this).attr('name').replace(/\[\d+\]/, '[' + index + ']');
+                    $(this).attr('name', newName).val('');
+                });
+                template.removeClass('d-none');
+                template.addClass('item-template').removeClass(type.toLowerCase() + '-template');
+            }
+
+            function updateIndexes(selector, type)
+            {
+                $(selector).each(function (i)
+                {
+                    $(this).find('input').each(function ()
+                    {
                         let name = $(this).attr('name').replace(/\[\d+\]/, '[' + i + ']');
                         $(this).attr('name', name);
                     });
@@ -206,4 +244,5 @@
         });
     </script>
 }
+
 

@@ -2,7 +2,6 @@ using CV_builder.Models;
 using CV_builder.Storage;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
-using System.Reflection;
 
 namespace CV_builder.Controllers
 {
@@ -53,8 +52,7 @@ namespace CV_builder.Controllers
             {
                 return NotFound();
             }
-            //Console.WriteLine($"Number of Educations: {cv.Education.Count}");
-            //Console.WriteLine($"Number of Work Experiences: {cv.WorkExperience.Count}");
+
             return View(cv);
         }
 
