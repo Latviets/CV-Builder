@@ -4,50 +4,245 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
+<h2>Edit CV</h2>
 
-<h4>CVModel</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>          
-            <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Surname" class="control-label"></label>
-                <input asp-for="Surname" class="form-control" />
-                <span asp-validation-for="Surname" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Phone" class="control-label"></label>
-                <input asp-for="Phone" class="form-control" />
-                <span asp-validation-for="Phone" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Address" class="control-label"></label>
-                <input asp-for="Address" class="form-control" />
-                <span asp-validation-for="Address" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+<form asp-action="Edit" method="post">
+    <input type="hidden" asp-for="Id" />
+    <div class="form-group">
+        <label asp-for="Name"></label>
+        <input asp-for="Name" class="form-control" autocomplete="name" />
     </div>
-</div>
+    <div class="form-group">
+        <label asp-for="Surname"></label>
+        <input asp-for="Surname" class="form-control" autocomplete="family-name" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Phone"></label>
+        <input asp-for="Phone" class="form-control" autocomplete="tel" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Email"></label>
+        <input asp-for="Email" class="form-control" autocomplete="email" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Address"></label>
+        <input asp-for="Address" class="form-control" autocomplete="street-address" />
+    </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+    <div id="educations">
+        <h4>Education</h4>
+        @if (Model.Education == null || Model.Education.Count == 0)
+        {
+            <div class="card mb-3 education-template item-template d-none">
+                <div class="card-header">
+                    <h5>Education <button type="button" class="btn btn-danger btn-sm float-right remove-item">Remove</button></h5>
+                </div>
+                <div class="form-group">
+                    <label>Institution</label>
+                    <input class="form-control" autocomplete="organization" />
+                </div>
+                <div class="form-group">
+                    <label>FieldOfStudy</label>
+                    <input class="form-control" autocomplete="section" />
+                </div>
+                <div class="form-group">
+                    <label>Faculty</label>
+                    <input class="form-control" autocomplete="field-of-study" />
+                </div>
+                <div class="form-group">
+                    <label>EducationLevel</label>
+                    <input class="form-control" autocomplete="education-level" />
+                </div>
+                <div class="form-group">
+                    <label>Status</label>
+                    <input class="form-control" autocomplete="current-status" />
+                </div>
+            </div>
+        }
+
+        @for (int i = 0; i < Model.Education.Count; i++)
+        {
+            <div class="card mb-3 education-template item-template">
+                <div class="card-header">
+                    <h5>Education   <button type="button" class="btn btn-danger btn-sm float-right remove-item">Remove</button></h5>
+                </div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <label asp-for="Education[@i].Institution"></label>
+                        <input asp-for="Education[@i].Institution" class="form-control" autocomplete="organization" />
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Education[@i].FieldOfStudy"></label>
+                        <input asp-for="Education[@i].FieldOfStudy" class="form-control" autocomplete="section" />
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Education[@i].Faculty"></label>
+                        <input asp-for="Education[@i].Faculty" class="form-control" autocomplete="field-of-study" />
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Education[@i].EducationLevel"></label>
+                        <input asp-for="Education[@i].EducationLevel" class="form-control" autocomplete="education-level" />
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Education[@i].Status"></label>
+                        <input asp-for="Education[@i].Status" class="form-control" autocomplete="current-status" />
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+    <button type="button" id="add-education" class="btn btn-secondary">Add Education</button>
+
+    <div id="workExperiences">
+        <h4>Work Experience</h4>
+        @if (Model.WorkExperience == null || Model.WorkExperience.Count == 0)
+        {
+            <div class="card mb-3 workExperience-template item-template d-none">
+                <div class="card-header">
+                    <h5>Work Experience      <button type="button" class="btn btn-danger btn-sm float-right remove-item">Remove</button></h5>
+                </div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <label>Company</label>
+                        <input class="form-control" autocomplete="organization" />
+                    </div>
+                    <div class="form-group">
+                        <label>JobTitle</label>
+                        <input class="form-control" autocomplete="organization-title" />
+                    </div>
+                    <div class="form-group">
+                        <label>Workload</label>
+                        <input class="form-control" autocomplete="workload" />
+                    </div>
+                    <div class="form-group">
+                        <label>Address</label>
+                        <input class="form-control" autocomplete="street-address" />
+                    </div>
+                    <div class="form-group">
+                        <label>StartDate</label>
+                        <input class="form-control" autocomplete="bday" />
+                    </div>
+                    <div class="form-group">
+                        <label>EndDate</label>
+                        <input class="form-control" autocomplete="bday" />
+                    </div>
+                </div>
+            </div>
+        }
+
+        @for (int i = 0; i < Model.WorkExperience.Count; i++)
+        {
+            <div class="card mb-3 workExperience-template item-template">
+                <div class="card-header">
+                    <h5>Work Experience     <button type="button" class="btn btn-danger btn-sm float-right remove-item">Remove</button></h5>
+                </div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <label asp-for="WorkExperience[@i].Company"></label>
+                        <input asp-for="WorkExperience[@i].Company" class="form-control" autocomplete="organization" />
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="WorkExperience[@i].JobTitle"></label>
+                        <input asp-for="WorkExperience[@i].JobTitle" class="form-control" autocomplete="job-title" />
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="WorkExperience[@i].Workload"></label>
+                        <input asp-for="WorkExperience[@i].Workload" class="form-control" autocomplete="workload" />
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="WorkExperience[@i].Address"></label>
+                        <input asp-for="WorkExperience[@i].Address" class="form-control" autocomplete="street-address" />
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="WorkExperience[@i].StartDate"></label>
+                        <input asp-for="WorkExperience[@i].StartDate" class="form-control" autocomplete="off" />
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="WorkExperience[@i].EndDate"></label>
+                        <input asp-for="WorkExperience[@i].EndDate" class="form-control" autocomplete="off" />
+                    </div>
+                </div>
+            </div>
+        }
+
+    </div>
+    <button type="button" id="add-workExperience" class="btn btn-secondary">Add Work Experience</button>
+
+    <button type="submit" class="btn btn-primary">Save</button>
+</form>
+
+<a asp-action="Index" class="btn btn-secondary">Back to List</a>
+
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        $(document).ready(function ()
+        {
+            let educationIndex = @Model.Education?.Count ?? 0;
+            let workExperienceIndex = @Model.WorkExperience?.Count ?? 0;
+
+            $('#add-education').click(function ()
+            {
+                let template = $('.education-template').first().clone();
+                if (template.length > 0)
+                {
+                    initializeTemplate(template, 'Education', educationIndex++);
+                    $('#educations').append(template);
+                }
+                else
+                {
+                    console.error("No education template found to clone.");
+                }
+            });
+
+            $('#add-workExperience').click(function ()
+            {
+                let template = $('.workExperience-template').first().clone();
+                if (template.length > 0)
+                {
+                    initializeTemplate(template, 'WorkExperience', workExperienceIndex++);
+                    $('#workExperiences').append(template);
+                }
+                else
+                {
+                    console.error("No work experience template found to clone.");
+                }
+            });
+
+            $(document).on('click', '.remove-item', function ()
+            {
+                $(this).closest('.item-template').remove();
+                updateIndexes('#educations .education-template', 'Education');
+                updateIndexes('#workExperiences .workExperience-template', 'WorkExperience');
+            });
+
+            function initializeTemplate(template, type, index)
+            {
+                template.find('input').each(function ()
+                {
+                    let newName = $(this).attr('name').replace(/\[\d+\]/, '[' + index + ']');
+                    $(this).attr('name', newName).val('');
+                });
+                template.removeClass('d-none');
+                template.addClass('item-template').removeClass(type.toLowerCase() + '-template');
+            }
+
+            function updateIndexes(selector, type)
+            {
+                $(selector).each(function (i)
+                {
+                    $(this).find('input').each(function ()
+                    {
+                        let name = $(this).attr('name').replace(/\[\d+\]/, '[' + i + ']');
+                        $(this).attr('name', name);
+                    });
+                });
+            }
+        });
+    </script>
 }
+
+

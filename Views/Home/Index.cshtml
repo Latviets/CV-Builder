@@ -1,9 +1,9 @@
 ﻿@model List<CVModel>
 @{
-    ViewData["Title"] = "CV List";
+    ViewData["Title"] = "Available CVs";
 }
 
-<h2>CV List</h2>
+<h2>Available CVs</h2>
 
 <table class="table">
     <thead>
@@ -12,7 +12,8 @@
             <th>Surname</th>
             <th>Phone</th>
             <th>Email</th>
-            <th>Address</th>
+            <th>Education</th>
+            <th>Work Experience</th>
             <th></th>
         </tr>
     </thead>
@@ -24,7 +25,18 @@
                 <td>@cv.Surname</td>
                 <td>@cv.Phone</td>
                 <td>@cv.Email</td>
-                <td>@cv.Address</td>
+                <td>
+                    @foreach (var education in cv.Education)
+                    {
+                        <p>@education.Institution - @education.FieldOfStudy - @education.Faculty - @education.EducationLevel (@education.Status)</p>
+                    }
+                </td>
+                <td>
+                    @foreach (var work in cv.WorkExperience)
+                    {
+                        <p>@work.Company - @work.JobTitle - @work.Workload - @work.Address (@work.StartDate.ToShortDateString() - @work.EndDate.ToShortDateString())</p>
+                    }
+                </td>
                 <td>
                     <a asp-action="Details" asp-route-id="@cv.Id" class="btn btn-info">Details</a>
                     <a asp-action="Edit" asp-route-id="@cv.Id" class="btn btn-primary">Edit</a>

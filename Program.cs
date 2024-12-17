@@ -1,3 +1,5 @@
+using CV_builder.Storage;
+
 namespace CV_builder
 {
     public class Program
@@ -8,6 +10,8 @@ namespace CV_builder
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+
+            builder.Services.AddSingleton<CVStorage>();
 
             var app = builder.Build();
 
