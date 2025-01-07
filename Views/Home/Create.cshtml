@@ -1,166 +1,308 @@
 ﻿@model CV_builder.Models.CVModel
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Create CV";
 }
 
-<h1>Create a new CV</h1>
+<div class="container py-4">
+    <div class="card shadow-sm">
+        <div class="card-header bg-transparent">
+            <div class="d-flex justify-content-between align-items-center">
+                <h1 class="h3 mb-0">Create New CV</h1>
+                <a asp-action="Index" class="btn btn-primary btn-lg">
+                    <i class="bi bi-arrow-left"></i> Back to List
+                </a>
+            </div>
+        </div>
 
-<h4>CV Template</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Surname" class="control-label"></label>
-                <input asp-for="Surname" class="form-control" />
-                <span asp-validation-for="Surname" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Phone" class="control-label"></label>
-                <input asp-for="Phone" class="form-control" />
-                <span asp-validation-for="Phone" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Address" class="control-label"></label>
-                <input asp-for="Address" class="form-control" />
-                <span asp-validation-for="Address" class="text-danger"></span>
-            </div>
-            <div>
-                <h3>Education</h3>
-                <div id="educations">
-                    <div class="card education-template mb-3">
-                        <div class="card-body">
-                            <h5 class="card-title"></h5>
-                            <div class="form-group">
-                                <label>Institution</label>
-                                <input name="Education[0].Institution" class="form-control" />
-                                <span asp-validation-for="Education[0].Institution" class="text-danger"></span>
-                            </div>
-                            <div class="form-group">
-                                <label>Field Of Study</label>
-                                <input name="Education[0].FieldOfStudy" class="form-control" />
-                                <span asp-validation-for="Education[0].FieldOfStudy" class="text-danger"></span>
-                            </div>
-                            <div class="form-group">
-                                <label>Faculty</label>
-                                <input name="Education[0].Faculty" class="form-control" />
-                                <span asp-validation-for="Education[0].Faculty" class="text-danger"></span>
-                            </div>
-                            <div class="form-group">
-                                <label>Education Level</label>
-                                <input name="Education[0].EducationLevel" class="form-control" />
-                                <span asp-validation-for="Education[0].EducationLevel" class="text-danger"></span>
-                            </div>
-                            <div class="form-group">
-                                <label>Status</label>
-                                <input name="Education[0].Status" class="form-control" />
-                                <span asp-validation-for="Education[0].Status" class="text-danger"></span>
-                            </div>
+        <div class="card-body">
+            <form asp-action="Create" method="post">
+                <div class="row mb-4">
+                    <div class="col-md-6">
+                        <h4 class="mb-3"><i class="bi bi-person"></i> Personal Information</h4>
+                        <div class="mb-3">
+                            <label asp-for="Name" class="form-label"></label>
+                            <input asp-for="Name" class="form-control" autocomplete="name" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="Surname" class="form-label"></label>
+                            <input asp-for="Surname" class="form-control" autocomplete="family-name" />
+                            <span asp-validation-for="Surname" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="Phone" class="form-label"></label>
+                            <input asp-for="Phone" class="form-control" autocomplete="tel" />
+                            <span asp-validation-for="Phone" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="Email" class="form-label"></label>
+                            <input asp-for="Email" class="form-control" autocomplete="email" />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="Address" class="form-label"></label>
+                            <input asp-for="Address" class="form-control" autocomplete="street-address" />
+                            <span asp-validation-for="Address" class="text-danger"></span>
                         </div>
                     </div>
                 </div>
-                <button type="button" id="add-education" class="btn btn-secondary">Add Education</button>
 
-                <h3>Work Experience</h3>
-                <div id="workExperiences">
-                    <div class="card workExperience-template mb-3">
-                        <div class="card-body">
-                            <h5 class="card-title"></h5>
-                            <div class="form-group">
-                                <label>Job Title</label>
-                                <input name="WorkExperience[0].JobTitle" class="form-control" />
-                                <span asp-validation-for="WorkExperience[0].JobTitle" class="text-danger"></span>
+                <div class="mb-4">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h4><i class="bi bi-mortarboard"></i> Education</h4>
+                        <button type="button" id="add-education" class="btn btn-outline-primary">
+                            <i class="bi bi-plus-lg"></i> Add Education
+                        </button>
+                    </div>
+                    
+                    <div id="educations">
+                        @for (int i = 0; i < Model.Education.Count; i++)
+                        {
+                            <div class="card mb-3 education-template item-template">
+                                <div class="card-header bg-transparent">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <h5 class="mb-0">Education Entry</h5>
+                                        @if (Model.Education.Count > 1)
+                                        {
+                                        <button type="button" class="btn btn-outline-danger btn-sm remove-item">
+                                            <i class="bi bi-trash"></i> Remove
+                                        </button>
+                                        }
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label asp-for="Education[i].Institution" class="form-label"></label>
+                                            <input asp-for="Education[i].Institution" class="form-control" />
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label asp-for="Education[i].FieldOfStudy" class="form-label"></label>
+                                            <input asp-for="Education[i].FieldOfStudy" class="form-control" />
+                                        </div>
+                                        <div class="col-md-4 mb-3">
+                                            <label asp-for="Education[i].Faculty" class="form-label"></label>
+                                            <input asp-for="Education[i].Faculty" class="form-control" />
+                                        </div>
+                                        <div class="col-md-4 mb-3">
+                                            <label asp-for="Education[i].EducationLevel" class="form-label"></label>
+                                            <input asp-for="Education[i].EducationLevel" class="form-control" />
+                                        </div>
+                                        <div class="col-md-4 mb-3">
+                                            <label asp-for="Education[i].Status" class="form-label"></label>
+                                            <input asp-for="Education[i].Status" class="form-control" />
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label>Company</label>
-                                <input name="WorkExperience[0].Company" class="form-control" />
-                                <span asp-validation-for="WorkExperience[0].Company" class="text-danger"></span>
-                            </div>
-                            <div class="form-group">
-                                <label>Workload</label>
-                                <input name="WorkExperience[0].Workload" class="form-control" />
-                                <span asp-validation-for="WorkExperience[0].Workload" class="text-danger"></span>
-                            </div>
-                            <div class="form-group">
-                                <label>Address</label>
-                                <input name="WorkExperience[0].Address" class="form-control" />
-                                <span asp-validation-for="WorkExperience[0].Address" class="text-danger"></span>
-                            </div>
-                            <div class="form-group">
-                                <label>Start Date</label>
-                                <input name="WorkExperience[0].StartDate" type="date" class="form-control" />
-                                <span asp-validation-for="WorkExperience[0].StartDate" class="text-danger"></span>
-                            </div>
-                            <div class="form-group">
-                                <label>End Date</label>
-                                <input name="WorkExperience[0].EndDate" type="date" class="form-control" />
-                                <span asp-validation-for="WorkExperience[0].EndDate" class="text-danger"></span>
-                            </div>
-                        </div>
+                        }
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h4><i class="bi bi-briefcase"></i> Work Experience</h4>
+                        <button type="button" id="add-workExperience" class="btn btn-outline-primary">
+                            <i class="bi bi-plus-lg"></i> Add Work Experience
+                        </button>
                     </div>
 
+                    <div id="workExperiences">
+                        @for (int i = 0; i < Model.WorkExperience.Count; i++)
+                        {
+                            <div class="card mb-3 workExperience-template item-template">
+                                <div class="card-header bg-transparent">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <h5 class="mb-0">Work Experience Entry</h5>
+                                        @if (Model.WorkExperience.Count > 1)
+                                        {
+                                        <button type="button" class="btn btn-outline-danger btn-sm remove-item">
+                                            <i class="bi bi-trash"></i> Remove
+                                        </button>
+                                        }
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label asp-for="WorkExperience[i].Company" class="form-label"></label>
+                                            <input asp-for="WorkExperience[i].Company" class="form-control" />
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label asp-for="WorkExperience[i].JobTitle" class="form-label"></label>
+                                            <input asp-for="WorkExperience[i].JobTitle" class="form-control" />
+                                        </div>
+                                        <div class="col-md-4 mb-3">
+                                            <label asp-for="WorkExperience[i].Workload" class="form-label"></label>
+                                            <input asp-for="WorkExperience[i].Workload" class="form-control" />
+                                        </div>
+                                        <div class="col-md-8 mb-3">
+                                            <label asp-for="WorkExperience[i].Address" class="form-label"></label>
+                                            <input asp-for="WorkExperience[i].Address" class="form-control" />
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label asp-for="WorkExperience[i].StartDate" class="form-label"></label>
+                                            <input asp-for="WorkExperience[i].StartDate" class="form-control" type="date" />
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label asp-for="WorkExperience[i].EndDate" class="form-label"></label>
+                                            <input asp-for="WorkExperience[i].EndDate" class="form-control" type="date" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
                 </div>
-                <button type="button" id="add-workExperience" class="btn btn-secondary">Add Work Experience</button>
 
-                <div class="form-group">
-                    <input type="submit" value="Create" class="btn btn-primary" />
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="bi bi-save"></i> Create CV
+                    </button>
                 </div>
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
-
 @section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
     <script>
-        $(document).ready(function ()
-        {
-            var educationIndex = 1;
-            $('#add-education').click(function ()
-            {
-                var template = $('.education-template').first().clone();
-                template.find('input').each(function ()
-                {
-                    var newName = $(this).attr('name').replace('[0]', '[' + educationIndex + ']');
-                    $(this).attr('name', newName);
-                    $(this).val('');
+        $(document).ready(function () {
+            let educationIndex = @Model.Education?.Count ?? 0;
+            let workExperienceIndex = @Model.WorkExperience?.Count ?? 0;
+
+            $('#add-education').click(function () {
+                let template = $('.education-template').first().clone();
+                let buttonGroup = template.find('.d-flex.justify-content-between .btn-group');
+                if (buttonGroup.length === 0) {
+                    buttonGroup = $('<div class="btn-group btn-group-sm"></div>');
+                    template.find('.d-flex.justify-content-between').append(buttonGroup);
+                }
+                buttonGroup.html(`
+                    <button type="button" class="btn btn-outline-danger remove-item">
+                        <i class="bi bi-trash"></i> Remove
+                    </button>
+                    <button type="button" class="btn btn-outline-secondary cancel-item">
+                        <i class="bi bi-x-lg"></i> Cancel
+                    </button>
+                `);
+                
+                template.find('input').each(function () {
+                    let newName = $(this).attr('name').replace(/\[\d+\]/, '[' + educationIndex + ']');
+                    $(this).attr('name', newName).val('');
                 });
-                template.appendTo('#educations');
+                template.addClass('new-entry');
+                $('#educations').append(template);
                 educationIndex++;
             });
 
-            var workExperienceIndex = 1;
-            $('#add-workExperience').click(function ()
-            {
-                var template = $('.workExperience-template').first().clone();
-                template.find('input').each(function ()
-                {
-                    var newName = $(this).attr('name').replace('[0]', '[' + workExperienceIndex + ']');
-                    $(this).attr('name', newName);
-                    $(this).val('');
+            $('#add-workExperience').click(function () {
+                let template = $('.workExperience-template').first().clone();
+                let buttonGroup = template.find('.d-flex.justify-content-between .btn-group');
+                if (buttonGroup.length === 0) {
+                    buttonGroup = $('<div class="btn-group btn-group-sm"></div>');
+                    template.find('.d-flex.justify-content-between').append(buttonGroup);
+                }
+                buttonGroup.html(`
+                    <button type="button" class="btn btn-outline-danger remove-item">
+                        <i class="bi bi-trash"></i> Remove
+                    </button>
+                    <button type="button" class="btn btn-outline-secondary cancel-item">
+                        <i class="bi bi-x-lg"></i> Cancel
+                    </button>
+                `);
+
+                template.find('input').each(function () {
+                    let newName = $(this).attr('name').replace(/\[\d+\]/, '[' + workExperienceIndex + ']');
+                    $(this).attr('name', newName).val('');
                 });
-                template.appendTo('#workExperiences');
+                template.addClass('new-entry');
+                $('#workExperiences').append(template);
                 workExperienceIndex++;
             });
+
+            $(document).on('click', '.cancel-item', function() {
+                $(this).closest('.new-entry').remove();
+            });
+
+            $(document).on('click', '.remove-item', function () {
+                let itemType = $(this).closest('.item-template').hasClass('education-template') ? 'education' : 'workExperience';
+                let count = $(`.${itemType}-template`).length;
+                
+                if (count > 1 || $(this).closest('.item-template').hasClass('new-entry')) {
+                    $(this).closest('.item-template').remove();
+                }
+            });
+
+            $('form').on('submit', function (e) {
+                let isValid = true;
+                let alertMessage = '';
+
+                // Check Education fields
+                $('.education-template').each(function() {
+                    let emptyFields = [];
+                    $(this).find('input').each(function() {
+                        let label = $(this).closest('.mb-3').find('label').text().trim();
+                        if ($(this).attr('type') === 'date') {
+                            let dateVal = $(this).val();
+                            if (!dateVal) {  // Only check if empty, don't validate date format
+                                emptyFields.push(label);
+                            }
+                        } else if (!$(this).val() && label) {
+                            emptyFields.push(label);
+                        }
+                    });
+                    
+                    if (emptyFields.length > 0) {
+                        alertMessage += 'Education Entry missing: ' + emptyFields.join(', ') + '\n';
+                        isValid = false;
+                    }
+                });
+
+                // Check Work Experience fields
+                $('.workExperience-template').each(function() {
+                    let emptyFields = [];
+                    let processedFields = new Set(); // Track processed fields to avoid duplicates
+                    
+                    $(this).find('input').each(function() {
+                        let label = $(this).closest('.mb-3').find('label').text().trim();
+                        // Skip if we've already processed this field
+                        if (processedFields.has(label)) return;
+                        processedFields.add(label);
+                        
+                        if ($(this).attr('type') === 'date') {
+                            let dateVal = $(this).val();
+                            if (!dateVal) {
+                                emptyFields.push(label);
+                            }
+                        } else if (!$(this).val() && label) {
+                            emptyFields.push(label);
+                        }
+                    });
+                    
+                    if (emptyFields.length > 0) {
+                        alertMessage += 'Work Experience Entry missing: ' + emptyFields.join(', ') + '\n';
+                        isValid = false;
+                    }
+                });
+
+                if (!isValid) {
+                    e.preventDefault();
+                    Swal.fire({
+                        title: 'Incomplete Fields',
+                        html: alertMessage.replace(/\n/g, '<br>'),
+                        icon: 'warning',
+                        confirmButtonText: 'OK'
+                    });
+                }
+            });
+
+            function isValidDate(dateString) {
+                const date = new Date(dateString);
+                return date instanceof Date && !isNaN(date);
+            }
         });
     </script>
 }
