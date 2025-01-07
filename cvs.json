@@ -1,28 +1,9 @@
 [
   {
-    "Id": 2,
-    "Name": "Edvins",
-    "Surname": "Vecverdins",
-    "Phone": "25669555555",
-    "Email": "example@inbox.lv",
-    "Address": "Ventspils, Lielais Prospekts 69",
-    "Education": [],
-    "WorkExperience": [
-      {
-        "Company": "AS \"Latvenergo\"",
-        "JobTitle": "CEO Of the company",
-        "Workload": "Pilna laika",
-        "Address": "Pils iela 24",
-        "StartDate": "2024-11-07T00:00:00",
-        "EndDate": "2024-11-12T00:00:00"
-      }
-    ]
-  },
-  {
     "Id": 1,
     "Name": "Andris",
     "Surname": "Andrisons",
-    "Phone": "11881010",
+    "Phone": "211881010",
     "Email": "Andris@gmail.com",
     "Address": "Riga, Kungu iela 4",
     "Education": [
@@ -42,14 +23,33 @@
         "Address": "No mājām",
         "StartDate": "2024-11-05T00:00:00",
         "EndDate": "2024-11-11T00:00:00"
-      },
+      }
+    ]
+  },
+  {
+    "Id": 3,
+    "Name": "Testing ",
+    "Surname": "Exampleperson",
+    "Phone": "2666666666",
+    "Email": "testing@inbox.lv",
+    "Address": "Ventspils, Liela iela 22",
+    "Education": [
       {
-        "Company": "RealCompany SIA",
-        "JobTitle": "Finanšu departamenta vadītājs",
-        "Workload": "Pusslodze",
-        "Address": "Rīga, Rīgas iela 100",
-        "StartDate": "2024-11-03T21:14:00",
-        "EndDate": "2024-11-12T21:15:00"
+        "Institution": "Ventspils University",
+        "FieldOfStudy": "Economics",
+        "Faculty": "Faculty of Business Management",
+        "EducationLevel": "Master's",
+        "Status": "Finished"
+      }
+    ],
+    "WorkExperience": [
+      {
+        "Company": "Government",
+        "JobTitle": "President Of The United States",
+        "Workload": "full-time",
+        "Address": "White House",
+        "StartDate": "2024-01-02T00:00:00",
+        "EndDate": "2025-01-06T00:00:00"
       }
     ]
   }

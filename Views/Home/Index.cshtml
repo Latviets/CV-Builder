@@ -1,50 +1,75 @@
-﻿@model List<CVModel>
+﻿@model IEnumerable<CV_builder.Models.CVModel>
+
 @{
-    ViewData["Title"] = "Available CVs";
+    ViewData["Title"] = "CV Collection";
 }
 
-<h2>Available CVs</h2>
+<div class="container py-4">
+    <div class="position-absolute end-0 top-0 me-4 mt-2">
+        <div class="bg-primary text-white px-4 py-2 rounded-bottom">
+            <i class="bi bi-collection"></i> Created by Edvins Vecverdins-Udris
+        </div>
+    </div>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Surname</th>
-            <th>Phone</th>
-            <th>Email</th>
-            <th>Education</th>
-            <th>Work Experience</th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var cv in Model)
+    <div class="card shadow-sm mb-4">
+        <div class="card-header bg-transparent">
+            <div class="d-flex justify-content-between align-items-center">
+                <h1 class="h3 mb-0">CV Collection</h1>
+                <a asp-action="Create" class="btn btn-primary btn-lg">
+                    <i class="bi bi-plus-lg"></i> Create New CV
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        @foreach (var item in Model)
         {
-            <tr>
-                <td>@cv.Name</td>
-                <td>@cv.Surname</td>
-                <td>@cv.Phone</td>
-                <td>@cv.Email</td>
-                <td>
-                    @foreach (var education in cv.Education)
-                    {
-                        <p>@education.Institution - @education.FieldOfStudy - @education.Faculty - @education.EducationLevel (@education.Status)</p>
-                    }
-                </td>
-                <td>
-                    @foreach (var work in cv.WorkExperience)
-                    {
-                        <p>@work.Company - @work.JobTitle - @work.Workload - @work.Address (@work.StartDate.ToShortDateString() - @work.EndDate.ToShortDateString())</p>
-                    }
-                </td>
-                <td>
-                    <a asp-action="Details" asp-route-id="@cv.Id" class="btn btn-info">Details</a>
-                    <a asp-action="Edit" asp-route-id="@cv.Id" class="btn btn-primary">Edit</a>
-                    <a asp-action="Delete" asp-route-id="@cv.Id" class="btn btn-danger">Delete</a>
-                </td>
-            </tr>
+            <div class="col">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title">@item.Name @item.Surname</h5>
+                        <div class="card-text">
+                            <p class="mb-1">
+                                <i class="bi bi-envelope"></i> @item.Email
+                            </p>
+                            <p class="mb-1">
+                                <i class="bi bi-telephone"></i> @item.Phone
+                            </p>
+                            <p class="mb-1">
+                                <i class="bi bi-geo-alt"></i> @item.Address
+                            </p>
+                        </div>
+                    </div>
+                    <div class="card-footer bg-transparent border-top-0">
+                        <div class="btn-group w-100" role="group">
+                            <a asp-action="Details" asp-route-id="@item.Id" 
+                               class="btn btn-outline-primary">
+                                <i class="bi bi-eye"></i> View
+                            </a>
+                            <a asp-action="Edit" asp-route-id="@item.Id" 
+                               class="btn btn-outline-secondary">
+                                <i class="bi bi-pencil"></i> Edit
+                            </a>
+                            <a asp-action="Delete" asp-route-id="@item.Id" 
+                               class="btn btn-outline-danger">
+                                <i class="bi bi-trash"></i> Delete
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
         }
-    </tbody>
-</table>
+    </div>
 
-<a asp-action="Create" class="btn btn-primary">Add New CV</a>
+    @if (!Model.Any())
+    {
+        <div class="text-center py-5">
+            <div class="display-6 text-muted mb-3">No CVs Found</div>
+            <p class="lead text-muted">Get started by creating your first CV</p>
+            <a asp-action="Create" class="btn btn-lg btn-primary">
+                <i class="bi bi-plus-lg"></i> Create New CV
+            </a>
+        </div>
+    }
+</div>

@@ -1,4 +1,5 @@
 using CV_builder.Storage;
+using CV_builder.Services;
 
 namespace CV_builder
 {
@@ -12,6 +13,7 @@ namespace CV_builder
             builder.Services.AddControllersWithViews();
 
             builder.Services.AddSingleton<CVStorage>();
+            builder.Services.AddScoped<DocumentService>();
 
             var app = builder.Build();
 

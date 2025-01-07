@@ -1,0 +1,124 @@
+@{
+    ViewData["Title"] = "CV Builder Info";
+}
+
+<div class="container py-4">
+    <div class="card shadow-sm">
+        <div class="card-header bg-transparent">
+            <div class="d-flex justify-content-between align-items-center">
+                <h1 class="h3 mb-0">About CV Builder</h1>
+                <a asp-action="Index" class="btn btn-primary btn-lg">
+                    <i class="bi bi-arrow-left"></i> Back to Collection
+                </a>
+            </div>
+        </div>
+        
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-8">
+                    <h4 class="mb-4"><i class="bi bi-stars"></i> Welcome to CV Builder</h4>
+                    <p class="lead">
+                        Create and manage your professional CVs with ease using this intuitive CV Builder platform.
+                    </p>
+                    
+                    <div class="mt-4">
+                        <h5 class="mb-3"><i class="bi bi-check2-circle"></i> Key Features</h5>
+                        <div class="row g-4">
+                            <div class="col-md-6">
+                                <div class="card h-100 border-0 bg-light">
+                                    <div class="card-body">
+                                        <h6 class="card-title"><i class="bi bi-pencil-square text-primary"></i> Easy Editing</h6>
+                                        <p class="card-text">Create and edit your CV with this user-friendly interface.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card h-100 border-0 bg-light">
+                                    <div class="card-body">
+                                        <h6 class="card-title"><i class="bi bi-mortarboard text-primary"></i> Education Section</h6>
+                                        <p class="card-text">Add multiple education entries with detailed information.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card h-100 border-0 bg-light">
+                                    <div class="card-body">
+                                        <h6 class="card-title"><i class="bi bi-briefcase text-primary"></i> Work Experience</h6>
+                                        <p class="card-text">Document your professional journey with comprehensive work history.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card h-100 border-0 bg-light">
+                                    <div class="card-body">
+                                        <h6 class="card-title"><i class="bi bi-download text-primary"></i> Export to Word</h6>
+                                        <p class="card-text">Download your CV as a simple Word document for easy sharing and printing.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card h-100 border-0 bg-light">
+                                    <div class="card-body">
+                                        <h6 class="card-title"><i class="bi bi-collection text-primary"></i> CV Management</h6>
+                                        <p class="card-text">Maintain multiple CVs in your personal collection.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-5">
+                        <h5 class="mb-3"><i class="bi bi-question-circle"></i> How to Get Started</h5>
+                        <ol class="list-group list-group-numbered">
+                            <li class="list-group-item">Click on "Create CV" to start a new CV</li>
+                            <li class="list-group-item">Fill in your personal information</li>
+                            <li class="list-group-item">Add your education history</li>
+                            <li class="list-group-item">Include your work experience</li>
+                            <li class="list-group-item">Save your CV to your collection</li>
+                            <li class="list-group-item">View your CV and download it as a Word document</li>
+                            <li class="list-group-item">Edit or update your CV anytime</li>
+                        </ol>
+                    </div>
+
+                    <div class="mt-5">
+                        <h5 class="mb-3"><i class="bi bi-file-earmark-word"></i> Downloading Your CV</h5>
+                        <div class="alert alert-info">
+                            <div class="d-flex">
+                                <div class="me-3">
+                                    <i class="bi bi-info-circle-fill fs-4"></i>
+                                </div>
+                                <div>
+                                    <h6 class="alert-heading">How to Download Your CV</h6>
+                                    <p class="mb-0">
+                                        After creating your CV, you can download it as a Word document by:
+                                        <ol class="mb-0 mt-2">
+                                            <li>Going to your CV details page</li>
+                                            <li>Clicking the "Download CV" button in the top-right corner</li>
+                                            <li>Opening the downloaded .docx file with Microsoft Word or similar software</li>
+                                        </ol>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="card bg-primary text-white">
+                        <div class="card-body">
+                            <h5 class="card-title"><i class="bi bi-lightning"></i> Quick Actions</h5>
+                            <div class="d-grid gap-2 mt-3">
+                                <a asp-action="Create" class="btn btn-light">
+                                    <i class="bi bi-plus-lg"></i> Create New CV
+                                </a>
+                                <a asp-action="Index" class="btn btn-outline-light">
+                                    <i class="bi bi-collection"></i> View Collection
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 

@@ -1,106 +1,88 @@
 ﻿@model CV_builder.Models.CVModel
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "CV Details";
 }
 
-<h1>Details</h1>
+<div class="container py-4">
+    <div class="card shadow-sm">
+        <div class="card-header bg-transparent">
+            <div class="d-flex justify-content-between align-items-center">
+                <h1 class="h3 mb-0">@Model.Name @Model.Surname</h1>
+                <div class="d-flex gap-2">
+                    <a asp-action="Download" asp-route-id="@Model.Id" class="btn btn-success btn-lg">
+                        <i class="bi bi-download"></i> Download CV
+                    </a>
+                    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning btn-lg">
+                        <i class="bi bi-pencil"></i> Edit
+                    </a>
+                    <a asp-action="Index" class="btn btn-secondary btn-lg">
+                        <i class="bi bi-arrow-left"></i> Back
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card-body">
+            <div class="row mb-4">
+                <div class="col-md-6">
+                    <h4 class="mb-3"><i class="bi bi-person"></i> Personal Information</h4>
+                    <dl class="row">
+                        <dt class="col-sm-4">Email</dt>
+                        <dd class="col-sm-8"><i class="bi bi-envelope-fill text-muted me-2"></i>@Model.Email</dd>
+                        
+                        <dt class="col-sm-4">Phone</dt>
+                        <dd class="col-sm-8"><i class="bi bi-telephone-fill text-muted me-2"></i>@Model.Phone</dd>
+                        
+                        <dt class="col-sm-4">Address</dt>
+                        <dd class="col-sm-8"><i class="bi bi-geo-alt-fill text-muted me-2"></i>@Model.Address</dd>
+                    </dl>
+                </div>
+            </div>
 
-<div>
-    <h4>CVModel</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Id)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Id)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Surname)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Surname)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Phone)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Phone)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Email)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Address)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Address)
-        </dd>
-    </dl>
-</div>
+            <div class="mb-4">
+                <h4 class="mb-3"><i class="bi bi-mortarboard"></i> Education</h4>
+                <div class="row row-cols-1 row-cols-md-2 g-4">
+                    @foreach (var edu in Model.Education)
+                    {
+                        <div class="col">
+                            <div class="card h-100 border-0 bg-light">
+                                <div class="card-body">
+                                    <h5 class="card-title">@edu.Institution</h5>
+                                    <h6 class="card-subtitle mb-2 text-muted">@edu.FieldOfStudy</h6>
+                                    <ul class="list-unstyled mb-0">
+                                        <li><strong>Faculty:</strong> @edu.Faculty</li>
+                                        <li><strong>Level:</strong> @edu.EducationLevel</li>
+                                        <li><strong>Status:</strong> @edu.Status</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
 
-<h3>Education</h3>
-<table class="table">
-    <thead>
-        <tr>
-            <th>Institution</th>
-            <th>Field Of Study</th>
-            <th>Faculty</th>
-            <th>Education Level</th>
-            <th>Status</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var education in Model.Education)
-        {
-            <tr>
-                <td>@education.Institution</td>
-                <td>@education.FieldOfStudy</td>
-                <td>@education.Faculty</td>
-                <td>@education.EducationLevel</td>
-                <td>@education.Status</td>
-            </tr>
-        }
-    </tbody>
-</table>
-
-<h3>Work Experience</h3>
-<table class="table">
-    <thead>
-        <tr>
-            <th>Job Title</th>
-            <th>Company</th>
-            <th>Workload</th>
-            <th>Address</th>
-            <th>Start Date</th>
-            <th>End Date</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var workExperience in Model.WorkExperience)
-        {
-            <tr>
-                <td>@workExperience.JobTitle</td>
-                <td>@workExperience.Company</td>
-                <td>@workExperience.Workload</td>
-                <td>@workExperience.Address</td>
-                <td>@workExperience.StartDate.ToShortDateString()</td>
-                <td>@workExperience.EndDate.ToShortDateString()</td>
-            </tr>
-        }
-    </tbody>
-</table>
-
-<div>
-    <a asp-action="Index">Back to List</a>
+            <div class="mb-4">
+                <h4 class="mb-3"><i class="bi bi-briefcase"></i> Work Experience</h4>
+                <div class="row row-cols-1 row-cols-md-2 g-4">
+                    @foreach (var work in Model.WorkExperience)
+                    {
+                        <div class="col">
+                            <div class="card h-100 border-0 bg-light">
+                                <div class="card-body">
+                                    <h5 class="card-title">@work.Company</h5>
+                                    <h6 class="card-subtitle mb-2 text-muted">@work.JobTitle</h6>
+                                    <ul class="list-unstyled mb-0">
+                                        <li><strong>Workload:</strong> @work.Workload</li>
+                                        <li><strong>Location:</strong> @work.Address</li>
+                                        <li><strong>Period:</strong> @work.StartDate.ToShortDateString() - @work.EndDate.ToShortDateString()</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
