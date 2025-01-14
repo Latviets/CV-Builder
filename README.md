@@ -1,5 +1,18 @@
 # CV Builder platform
 This application provides a simple to understand and user-friendly interface for managing CVs effectively.
+Key changes added in last commit include:
+  - Bootstrap Icons integration
+  - Responsive grid system
+  - Consistent styling across all elements
+  - Clear visual hierarchy
+  - Client-side validation for empty fields - Show a nice-looking alert using SweetAlert2 when there are empty fields
+  - Improved button styling and positioning
+  - Better organization of education and work experience sections
+  - Cleaner JavaScript code for dynamic form handling
+  - A check in JavaScript to prevent removing the last entry
+  - A new Info view which includes an Overview of the CV Builder, Getting started guide, Quick action buttons
+  - The ability to export CV information to a .doc file and download it
+
 ## Technologies Used 
 - C# programming language
 - ASP.NET Core MVC (Model-View-Controller) pattern
